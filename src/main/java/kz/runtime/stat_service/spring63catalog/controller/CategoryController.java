@@ -1,7 +1,7 @@
 package kz.runtime.stat_service.spring63catalog.controller;
 
 import kz.runtime.stat_service.spring63catalog.model.Category;
-import kz.runtime.stat_service.spring63catalog.repository.CategoryRepository;
+import kz.runtime.stat_service.spring63catalog.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/categories")
 public class CategoryController {
 
-    private final CategoryRepository categoryRepository;
+    private final CategoryService categoryService;
 
     @GetMapping
     public String findAll(Model model) {
-        model.addAttribute("categories", categoryRepository.findAll());
+        model.addAttribute("categories", categoryService.findAll());
         return "categories";
     }
 
@@ -31,7 +31,7 @@ public class CategoryController {
 
     @PostMapping("/create")
     public String createPost(@ModelAttribute Category category) {
-        categoryRepository.create(category);
+        categoryService.create(category);
         return "redirect:/categories";
     }
 }
