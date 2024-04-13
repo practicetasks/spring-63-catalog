@@ -1,7 +1,8 @@
-package kz.runtime.stat_service.spring63catalog.service;
+package kz.runtime.stat_service.spring63catalog.service.impl;
 
 import kz.runtime.stat_service.spring63catalog.model.Category;
 import kz.runtime.stat_service.spring63catalog.repository.CategoryRepository;
+import kz.runtime.stat_service.spring63catalog.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

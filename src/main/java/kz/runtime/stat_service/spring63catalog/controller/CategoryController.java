@@ -2,13 +2,11 @@ package kz.runtime.stat_service.spring63catalog.controller;
 
 import kz.runtime.stat_service.spring63catalog.model.Category;
 import kz.runtime.stat_service.spring63catalog.service.CategoryService;
+import kz.runtime.stat_service.spring63catalog.service.OptionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -16,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CategoryController {
 
     private final CategoryService categoryService;
+    private final OptionService optionService;
 
     @GetMapping
     public String findAll(Model model) {
@@ -30,8 +29,9 @@ public class CategoryController {
     }
 
     @PostMapping("/create")
-    public String createPost(@ModelAttribute Category category) {
+    public String createPost(@ModelAttribute Category category, @RequestParam String optionNames) {
         categoryService.create(category);
+        optionService.create(optionNames, category);
         return "redirect:/categories";
     }
 }

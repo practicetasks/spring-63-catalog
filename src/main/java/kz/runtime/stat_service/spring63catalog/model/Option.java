@@ -4,23 +4,20 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.util.List;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "categories")
+@Table(name = "options")
 @Entity
-public class Category {
+public class Option {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
     String name;
-    @OneToMany(mappedBy = "category")
-    List<Product> products;
 
-    @OneToMany(mappedBy = "category")
-    List<Option> options;
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    Category category;
 }

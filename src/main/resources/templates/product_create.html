@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1 th:text="${category.name}"></h1>
+<form action="/products/create" method="post" th:object="${product}">
+    <label for="name">
+        Название товара
+        <input id="name">
+    </label>
+    <br>
+    <label for="price">
+        Стоимость товара
+        <input id="price">
+    </label>
+    <br>
+    <div th:each="option : ${category.getOptions()}">
+        <input type="hidden" name="optionIds" th:value="${option.id}">
+        <p th:text="${option.name}"></p>
+        <input name="values">
+    </div>
+    <button type="submit">Send</button>
+</form>
+
+
+</body>
+</html>

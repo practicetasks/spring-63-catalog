@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>Все товары</h1>
+<div th:each="product : ${products}">
+    [[${product.name}]]
+</div>
+
+<a href="/products/create/chooseCategory">Создать товар</a>
+</body>
+</html>
