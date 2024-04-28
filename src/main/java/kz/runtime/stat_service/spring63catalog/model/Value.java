@@ -1,6 +1,5 @@
 package kz.runtime.stat_service.spring63catalog.model;
 
-
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
@@ -10,15 +9,20 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "products")
+@Table(name = "values")
 @Entity
-public class Product {
+public class Value {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    long id;
+
     String name;
-    double price;
+
     @ManyToOne
-    @JoinColumn(name = "category_id")
-    Category category;
+    @JoinColumn(name = "product_id")
+    Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "option_id")
+    Option option;
 }

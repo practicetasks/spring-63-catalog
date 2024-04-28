@@ -8,4 +8,6 @@ public interface ProductService {
     void create(Product product, long categoryId, List<Long> optionIds, List<String> values);
 
     List<Product> findAll();
+
+    Product findById(long id);
 }
