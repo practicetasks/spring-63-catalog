@@ -21,11 +21,11 @@
         </thead>
         <tbody>
         <tr th:each="product : ${products}">
-            <td th:text="${product.name}"></td>
+            <td><a class="text-decoration-none text-dark" th:href="@{|products/${product.getId()}|}" th:text="${product.name}"></a></td>
             <td th:text="${product.price}"></td>
             <td th:text="${product.category.name}"></td>
-            <td><a href="#">Редактировать</a></td>
-            <td><a href="#">Удалить</a></td>
+            <td><a th:href="@{|products/update/${product.getId()}|}">Редактировать</a></td>
+            <td><a th:href="@{|products/delete/${product.getId()}|}">Удалить</a></td>
         </tr>
         </tbody>
     </table>

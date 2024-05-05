@@ -53,6 +53,21 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public void update(long productId, String updatedName, double updatedPrice, List<Long> optionIds, List<String> values) {
+        Product product = productRepository.findById(productId).orElseThrow();
+        product.setPrice(updatedPrice);
+        product.setName(updatedName);
+        productRepository.save(product);
+
+        for (int i = 0; i < optionIds.size(); i++) {
+            long optionId = optionIds.get(i);
+            Value value = valueRepository.findByProductIdAndOptionId(productId, optionId).orElseThrow();
+            value.setName(values.get(i));
+            valueRepository.save(value);
+        }
+    }
+
+    @Override
     public List<Product> findAll() {
         return productRepository.findAll();
     }
@@ -60,5 +75,16 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product findById(long id) {
         return productRepository.findById(id).orElseThrow();
+    }
+
+    @Override
+    public void deleteById(long id) {
+        valueRepository.deleteAllByProductId(id);
+        productRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Value> findValuesByProductId(long id) {
+        return valueRepository.findAllByProductId(id);
     }
 }

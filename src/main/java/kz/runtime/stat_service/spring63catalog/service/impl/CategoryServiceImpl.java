@@ -1,7 +1,9 @@
 package kz.runtime.stat_service.spring63catalog.service.impl;
 
 import kz.runtime.stat_service.spring63catalog.model.Category;
+import kz.runtime.stat_service.spring63catalog.model.Option;
 import kz.runtime.stat_service.spring63catalog.repository.CategoryRepository;
+import kz.runtime.stat_service.spring63catalog.repository.OptionRepository;
 import kz.runtime.stat_service.spring63catalog.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final OptionRepository optionRepository;
 
     @Override
     public List<Category> findAll() {
@@ -42,5 +45,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public void deleteById(long id) {
         categoryRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Option> findOptionsByCategoryId(long categoryId) {
+        return optionRepository.findAllByCategoryId(categoryId);
     }
 }
