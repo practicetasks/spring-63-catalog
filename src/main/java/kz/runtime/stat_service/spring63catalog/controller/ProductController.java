@@ -57,7 +57,7 @@ public class ProductController {
         Product product = productService.findById(productId);
         model.addAttribute("product", product);
         model.addAttribute("options", categoryService.findOptionsByCategoryId(product.getCategory().getId()));
-        model.addAttribute("values", productService.findValuesByProductId(productId));
+        model.addAttribute("values", product.getValues());
         return "product_update";
     }
 
@@ -65,10 +65,10 @@ public class ProductController {
     public String create(
             @ModelAttribute Product product,
             @RequestParam Long categoryId,
-            @RequestParam List<String> values,
+            @RequestParam List<String> valueNames,
             @RequestParam List<Long> optionIds
     ) {
-        productService.create(product, categoryId, optionIds, values);
+        productService.create(product, categoryId, optionIds, valueNames);
         return "redirect:/products";
     }
 
@@ -77,10 +77,10 @@ public class ProductController {
             @PathVariable long productId,
             @RequestParam String updatedName,
             @RequestParam double updatedPrice,
-            @RequestParam List<String> values,
+            @RequestParam List<String> valueNames,
             @RequestParam List<Long> optionIds
     ) {
-        productService.update(productId, updatedName, updatedPrice, optionIds, values);
+        productService.update(productId, updatedName, updatedPrice, optionIds, valueNames);
         return "redirect:/products";
     }
 

@@ -24,7 +24,7 @@
         <div th:each="option : ${category.getOptions()}">
             <input type="hidden" name="optionIds" th:value="${option.id}">
             <p th:text="${option.name}"></p>
-            <input name="values" class="form-control">
+            <input name="valueNames" class="form-control">
         </div>
         <button class="btn btn-primary" type="submit">Send</button>
     </form>

@@ -25,6 +25,6 @@ public class Product {
     @JoinColumn(name = "category_id")
     Category category;
 
-//    @OneToMany(mappedBy = "product")
-//    List<Value> values = new ArrayList<>();
+    @OneToMany(mappedBy = "product")
+    List<Value> values = new ArrayList<>();
 }
