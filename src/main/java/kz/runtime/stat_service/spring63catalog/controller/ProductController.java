@@ -56,8 +56,7 @@ public class ProductController {
     public String updateForm(Model model, @PathVariable long productId) {
         Product product = productService.findById(productId);
         model.addAttribute("product", product);
-        model.addAttribute("options", categoryService.findOptionsByCategoryId(product.getCategory().getId()));
-        model.addAttribute("values", product.getValues());
+        model.addAttribute("options", productService.getOptions(product));
         return "product_update";
     }
 

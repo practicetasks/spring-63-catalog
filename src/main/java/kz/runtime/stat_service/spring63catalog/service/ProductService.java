@@ -1,9 +1,12 @@
 package kz.runtime.stat_service.spring63catalog.service;
 
+import kz.runtime.stat_service.spring63catalog.model.Option;
 import kz.runtime.stat_service.spring63catalog.model.Product;
 import kz.runtime.stat_service.spring63catalog.model.Value;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public interface ProductService {
     void create(Product product, long categoryId, List<Long> optionIds, List<String> values);
@@ -16,5 +19,5 @@ public interface ProductService {
 
     void deleteById(long id);
 
-    List<Value> findValuesByProductId(long id);
+    Map<Option, Optional<Value>> getOptions(Product product);
 }

@@ -1,5 +1,6 @@
 package kz.runtime.stat_service.spring63catalog.service.impl;
 
+import kz.runtime.stat_service.spring63catalog.exception.EntityNotFoundException;
 import kz.runtime.stat_service.spring63catalog.model.Category;
 import kz.runtime.stat_service.spring63catalog.model.Option;
 import kz.runtime.stat_service.spring63catalog.model.Product;
@@ -12,7 +13,7 @@ import kz.runtime.stat_service.spring63catalog.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -57,14 +58,36 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.findById(productId).orElseThrow();
         product.setPrice(updatedPrice);
         product.setName(updatedName);
+
         productRepository.save(product);
 
         for (int i = 0; i < optionIds.size(); i++) {
             long optionId = optionIds.get(i);
-            Value value = valueRepository.findByProductIdAndOptionId(productId, optionId).orElseThrow();
+            Option option = optionRepository.findById(optionId).orElseThrow();
+            Value value = valueRepository.findByProductAndOption(product, option)
+                    .orElseGet(() -> {
+                        Value newValue = new Value();
+                        newValue.setProduct(product);
+                        newValue.setOption(option);
+                        return newValue;
+                    });
             value.setName(values.get(i));
             valueRepository.save(value);
         }
+    }
+
+    @Override
+    public Map<Option, Optional<Value>> getOptions(Product product) {
+        Map<Option, Optional<Value>> result = new LinkedHashMap<>();
+
+        long categoryId = product.getCategory().getId();
+        List<Option> options = optionRepository.findAllByCategoryId(categoryId);
+        for (Option option : options) {
+            Optional<Value> optionalValue = valueRepository.findByProductAndOption(product, option);
+            result.put(option, optionalValue);
+        }
+
+        return result;
     }
 
     @Override
@@ -74,17 +97,13 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product findById(long id) {
-        return productRepository.findById(id).orElseThrow();
+        return productRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Товар с id=" + id + " не найден!"));
     }
 
     @Override
     public void deleteById(long id) {
         valueRepository.deleteAllByProductId(id);
         productRepository.deleteById(id);
-    }
-
-    @Override
-    public List<Value> findValuesByProductId(long id) {
-        return valueRepository.findAllByProductId(id);
     }
 }

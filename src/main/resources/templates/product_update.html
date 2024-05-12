@@ -20,11 +20,11 @@
             <input id="price" name="updatedPrice" th:value="*{price}" required class="form-control">
         </label>
         <br>
-        <div th:each="option, iterate : ${options}">
-            <input type="hidden" name="optionIds" th:value="${option.id}">
-            <p th:text="${option.name}"></p>
+        <div th:each="entry: ${options}">
+            <input type="hidden" name="optionIds" th:value="${entry.getKey().id}">
+            <p th:text="${entry.getKey().getName()}"></p>
 
-            <input th:value="${values.get(iterate.index).getName()}"
+            <input th:value="${entry.getValue().isPresent() ? entry.getValue().get().name : ''}"
                    name="valueNames" class="form-control">
         </div>
         <button class="btn btn-primary" type="submit">Send</button>
