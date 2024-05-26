@@ -19,8 +19,13 @@ public class ProductController {
     private final CategoryService categoryService;
 
     @GetMapping
-    public String findAll(Model model) {
-        model.addAttribute("products", productService.findAll());
+    public String findAll(
+            @RequestParam(defaultValue = "0") int from,
+            @RequestParam(defaultValue = "" + Integer.MAX_VALUE) int to,
+            @RequestParam(required = false) Long categoryId,
+            Model model
+    ) {
+        model.addAttribute("products", productService.findAll(categoryId, from, to));
         return "products";
     }
 
@@ -31,6 +36,7 @@ public class ProductController {
     ) {
         Product product = productService.findById(productId);
         model.addAttribute("product", product);
+        model.addAttribute("options", productService.getOptions(product));
         return "product_single_page";
     }
 

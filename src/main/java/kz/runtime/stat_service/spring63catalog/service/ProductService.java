@@ -13,7 +13,7 @@ public interface ProductService {
 
     void update(long productId, String updatedName, double updatedPrice, List<Long> optionIds, List<String> values);
 
-    List<Product> findAll();
+    List<Product> findAll(Long categoryId, int from, int to);
 
     Product findById(long id);
 

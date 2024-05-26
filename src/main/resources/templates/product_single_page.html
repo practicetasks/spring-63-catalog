@@ -11,5 +11,12 @@
     <p>Стоимость товара <b th:text="*{price}"></b></p>
 </div>
 
+<div>
+    <p th:each="entry : ${options}">
+        <span th:text="${entry.getKey().getName()}"></span>:
+        <span th:text="${entry.getValue().isPresent() ? entry.getValue().get().name : ''}"></span>
+    </p>
+</div>
+
 </body>
 </html>

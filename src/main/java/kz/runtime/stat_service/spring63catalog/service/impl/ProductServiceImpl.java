@@ -91,8 +91,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAll() {
-        return productRepository.findAll();
+    public List<Product> findAll(Long categoryId, int from, int to) {
+        return productRepository.findAllByPriceBetween(categoryId, from, to);
     }
 
     @Override

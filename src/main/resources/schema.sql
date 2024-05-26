@@ -27,3 +27,14 @@ create table values
     option_id  int8 references options (id)  not null,
     unique (product_id, option_id)
 );
+
+create table users
+(
+    id       serial8 primary key,
+    name     varchar(255),
+    lastname varchar(255),
+    login    varchar(255) not null unique,
+    password varchar(255) not null,
+    role     int,
+    created  timestamp
+);
