@@ -10,3 +10,8 @@ public interface OptionService extends AbstractService<Option> {
 
     List<Option> findAllByCategoryId(long categoryId);
 }
+
+
+
+// Создайте табличку для корзины
+// - в таблице должна быть несколько товаров и один пользователь

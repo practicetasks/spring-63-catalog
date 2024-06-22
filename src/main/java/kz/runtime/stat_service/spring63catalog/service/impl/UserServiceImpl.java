@@ -1,7 +1,11 @@
 package kz.runtime.stat_service.spring63catalog.service.impl;
 
+import kz.runtime.stat_service.spring63catalog.model.CartItem;
+import kz.runtime.stat_service.spring63catalog.model.Product;
 import kz.runtime.stat_service.spring63catalog.model.Role;
 import kz.runtime.stat_service.spring63catalog.model.User;
+import kz.runtime.stat_service.spring63catalog.repository.CartItemRepository;
+import kz.runtime.stat_service.spring63catalog.repository.ProductRepository;
 import kz.runtime.stat_service.spring63catalog.repository.UserRepository;
 import kz.runtime.stat_service.spring63catalog.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +19,8 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final CartItemRepository cartItemRepository;
+    private final ProductRepository productRepository;
     private final PasswordEncoder encoder;
 
     @Override

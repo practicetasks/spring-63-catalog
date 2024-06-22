@@ -38,3 +38,13 @@ create table users
     role     int,
     created  timestamp
 );
+
+
+create table cart_items
+(
+    id         serial8 primary key,
+    user_id    int8 references users (id),
+    product_id int8 references products (id),
+    quantity   int not null
+);
+
