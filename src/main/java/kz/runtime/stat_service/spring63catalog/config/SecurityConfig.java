@@ -2,7 +2,6 @@ package kz.runtime.stat_service.spring63catalog.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -22,7 +21,10 @@ public class SecurityConfig {
             auth.anyRequest().permitAll();
         });
 
-        http.formLogin(formLogin -> formLogin.loginPage("/login"));
+        http.formLogin(formLogin -> {
+            formLogin.loginPage("/login");
+            formLogin.defaultSuccessUrl("/products");
+        });
         return http.build();
     }
 
