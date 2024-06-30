@@ -26,6 +26,7 @@ public class ProductController {
             Model model
     ) {
         model.addAttribute("products", productService.findAll(categoryId, from, to));
+        model.addAttribute("categories", categoryService.findAll());
         return "products";
     }
 

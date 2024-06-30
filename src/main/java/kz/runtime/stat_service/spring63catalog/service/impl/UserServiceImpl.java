@@ -1,11 +1,7 @@
 package kz.runtime.stat_service.spring63catalog.service.impl;
 
-import kz.runtime.stat_service.spring63catalog.model.CartItem;
-import kz.runtime.stat_service.spring63catalog.model.Product;
 import kz.runtime.stat_service.spring63catalog.model.Role;
 import kz.runtime.stat_service.spring63catalog.model.User;
-import kz.runtime.stat_service.spring63catalog.repository.CartItemRepository;
-import kz.runtime.stat_service.spring63catalog.repository.ProductRepository;
 import kz.runtime.stat_service.spring63catalog.repository.UserRepository;
 import kz.runtime.stat_service.spring63catalog.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -15,12 +11,12 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
-    private final CartItemRepository cartItemRepository;
-    private final ProductRepository productRepository;
     private final PasswordEncoder encoder;
 
     @Override
@@ -31,11 +27,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getUser() {
+    public Optional<User> getUser() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
         Authentication authentication = securityContext.getAuthentication();
         return userRepository
-                .findByLogin(authentication.getName())
-                .orElseThrow();
+                .findByLogin(authentication.getName());
     }
 }

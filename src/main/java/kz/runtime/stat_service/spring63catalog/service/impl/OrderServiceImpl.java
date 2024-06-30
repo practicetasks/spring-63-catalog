@@ -21,7 +21,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void create(String address) {
-        User user = userService.getUser();
+        User user = userService.getUser().orElseThrow();
 
         Order order = new Order();
         order.setAddress(address);

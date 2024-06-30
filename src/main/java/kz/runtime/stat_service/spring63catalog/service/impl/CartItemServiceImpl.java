@@ -24,7 +24,7 @@ public class CartItemServiceImpl implements CartItemService {
     @Override
     public void addItemToCart(long productId) {
         CartItem cartItem = new CartItem();
-        cartItem.setUser(userService.getUser());
+        cartItem.setUser(userService.getUser().orElseThrow());
 
         Product product = productRepository.findById(productId).orElseThrow();
         cartItem.setProduct(product);
@@ -35,7 +35,7 @@ public class CartItemServiceImpl implements CartItemService {
 
     @Override
     public List<CartItem> findAllCartItems() {
-        User user = userService.getUser();
+        User user = userService.getUser().orElseThrow();
         return cartItemRepository.findAllByUserOrderById(user);
     }
 
